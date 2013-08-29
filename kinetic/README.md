@@ -16,7 +16,7 @@ Running Benchmarks
 ==================
 
 Running YCSB against Kiometer is no different than running for any other supported database. For convenience we provide
-the `run_kinetic_test.sh` script. It can be modified to specify the host and will run the recommended sequence of
+the `run_kinetic_test.sh <host> <port>` script. It can be modified to specify the host and will run the recommended sequence of
 workloads. The raw results are piped to `workloadX.dat` and a summary is printed at the end
 
 Interactive Shell

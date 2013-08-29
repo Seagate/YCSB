@@ -2,7 +2,15 @@
 
 set -e
 
-CONNECTION="-p host=169.254.219.193 -p port=8123 -p nio=true -p ssl=false"
+if [ $# -lt 2 ]; then
+    echo "Usage: run_basic_script.sh <host> <port>"
+    exit
+fi
+
+HOST=$1
+PORT=$2
+
+CONNECTION="-p host=$HOST -p port=$PORT -p nio=true -p ssl=false"
 OPTIONS="-threads 16"
 
 # Load the database, using workload A’s parameter file (workloads/workloada) and the “-load” switch to the client.
