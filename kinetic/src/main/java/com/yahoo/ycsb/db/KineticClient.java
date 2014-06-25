@@ -1,15 +1,16 @@
 package com.yahoo.ycsb.db;
 
-import com.seagate.kinetic.admin.KineticAdminClient;
-import com.seagate.kinetic.admin.KineticAdminClientFactory;
-import com.seagate.kinetic.client.ClientConfiguration;
-import com.seagate.kinetic.client.Entry;
-import com.seagate.kinetic.client.KineticClientFactory;
-import com.seagate.kinetic.client.KineticException;
 import com.yahoo.ycsb.ByteArrayByteIterator;
 import com.yahoo.ycsb.ByteIterator;
 import com.yahoo.ycsb.DB;
 import com.yahoo.ycsb.DBException;
+import kinetic.admin.AdminClientConfiguration;
+import kinetic.admin.KineticAdminClient;
+import kinetic.admin.KineticAdminClientFactory;
+import kinetic.client.ClientConfiguration;
+import kinetic.client.Entry;
+import kinetic.client.KineticClientFactory;
+import kinetic.client.KineticException;
 
 import java.io.*;
 import java.util.HashMap;
@@ -22,7 +23,7 @@ public class KineticClient extends DB {
     private static final int OK = 0;
     private static final int ERROR = 1;
     private static final AtomicInteger initCount = new AtomicInteger(0);
-    private com.seagate.kinetic.client.KineticClient client;
+    private kinetic.client.KineticClient client;
 
     /**
      * Helper method for converting a String -> ByteIterator map into a byte array.
@@ -81,7 +82,7 @@ public class KineticClient extends DB {
         }
 
 
-        ClientConfiguration clientConfiguration = new ClientConfiguration();
+        AdminClientConfiguration clientConfiguration = new AdminClientConfiguration();
         clientConfiguration.setHost(getProperties().getProperty("host", "127.0.0.1"));
         clientConfiguration.setPort(Integer.parseInt(getProperties().getProperty("port", "8123")));
         clientConfiguration.setUseNio(Boolean.parseBoolean(getProperties().getProperty("nio", "true")));
@@ -175,7 +176,7 @@ public class KineticClient extends DB {
     public int insert(String table, String key, HashMap<String, ByteIterator> values) {
         try {
             byte[] value = serializeMapToBytes(values);
-            client.put(new Entry(key.getBytes(), value));
+            client.put(new Entry(key.getBytes(), value), null);
             return OK;
         } catch (Exception e) {
             System.err.println(e.getMessage());
