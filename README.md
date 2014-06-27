@@ -1,38 +1,27 @@
-Yahoo! Cloud System Benchmark (YCSB)
-====================================
-[![Build Status](https://travis-ci.org/brianfrankcooper/YCSB.png?branch=master)](https://travis-ci.org/brianfrankcooper/YCSB)
+Configuration explanations
+=============
+The configuration file is under YCSB/workloads/workloada, also you can add workload* as you needed.
 
-Links
------
-http://wiki.github.com/brianfrankcooper/YCSB/  
-http://research.yahoo.com/Web_Information_Management/YCSB/  
-ycsb-users@yahoogroups.com  
+1. fieldcount=1      --------  Do not modify it.
+2. hosts             --------  Replace it with your drive's ip and port. The format is ip1:port1;ip2:port2;ip3:port3;....
+3. connectionpernode --------  Replace it with your connection number for one client.
+4. fieldlength       --------  Replace it with value's size, now the default is 1MB=1048576B.
+5. recordcount       --------  Number of generation key. Replace it with how many key samples you wanted to generate. 
+6. operationcount    --------  Number of operation key selected from recordcount. Replace it with how many keys you wanted to operate to your drive. 
+7. workload          --------  Do not modify it.
+8. readallfields     --------  Do not modify it.
+9. readproportion    --------  Replace it with the proportion of read operation you wanted to test.
+10. updateproportion --------  Replace it with the proportion of update operation you wanted to test.
+11. scanproportion   --------  Replace it with the proportion of scan operation you wanted to test. Scan operation not implement until now.
+12. insertproportion --------  Replace it with the proportion of put operation you wanted to test.
 
-Getting Started
----------------
+Run script to test performance
+============
+1. $ cd YCSB/
+2. $ mvn clean package
+3. $ ./bin/ycsb-kinetic.sh -P "workload path" -threads "your threads number".
 
-1. Download the latest release of YCSB:
+   For instance:
 
-    ```sh
-    wget https://github.com/downloads/brianfrankcooper/YCSB/ycsb-0.1.4.tar.gz
-    tar xfvz ycsb-0.1.4
-    cd ycsb-0.1.4
-    ```
-    
-2. Set up a database to benchmark. There is a README file under each binding 
-   directory.
+   $ ./bin/ycsb-kinetic.sh -P workloads/workloada -threads 10
 
-3. Run YCSB command. 
-    
-    ```sh
-    bin/ycsb load basic -P workloads/workloada
-    bin/ycsb run basic -P workloads/workloada
-    ```
-
-  Running the `ycsb` command without any argument will print the usage. 
-   
-  See https://github.com/brianfrankcooper/YCSB/wiki/Running-a-Workload
-  for a detailed documentation on how to run a workload.
-
-  See https://github.com/brianfrankcooper/YCSB/wiki/Core-Properties for 
-  the list of available workload properties.

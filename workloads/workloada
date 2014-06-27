@@ -18,20 +18,28 @@
 # Workload A: Update heavy workload
 #   Application example: Session store recording recent actions
 #                        
-#   Read/update ratio: 50/50
+#   Read/insert ratio: 0/100
 #   Default data size: 1 KB records (10 fields, 100 bytes each, plus key)
-#   Request distribution: zipfian
+#   Request distribution: uniform
 
-recordcount=1000
+#for kinetic
+fieldcount=1
+
+hosts=10.24.71.32:8123;10.24.71.225:8123;10.24.70.74:8123;10.24.70.252:8123
+connectionpernode=1
+
+#fieldlength=4096
+fieldlength=1048576
+recordcount=10000
 operationcount=1000
 workload=com.yahoo.ycsb.workloads.CoreWorkload
 
 readallfields=true
 
-readproportion=0.5
-updateproportion=0.5
+readproportion=0
+updateproportion=0
 scanproportion=0
-insertproportion=0
+insertproportion=1
 
-requestdistribution=zipfian
+requestdistribution=uniform
 
